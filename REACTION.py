@@ -7,7 +7,7 @@ from time import sleep, clock_gettime, CLOCK_MONOTONIC
 from threading import Event
 import sys, random, csv, os
 
-s1 = s2 = 1
+s1 = s2 = True
 k = int(sys.argv[2])
 data = []
 
@@ -55,34 +55,67 @@ print("subscribed listener\n")
 
 #starting reaction testing
 while k > 0:
-	sleep(random.randrange(1,10)) #random delay vibration
-	j = random.randrange(0,4) #select random motor
-	libmetawear.mbl_mw_gpio_set_digital_output(device.board, j)
-	start = clock_gettime(CLOCK_MONOTONIC)
+	sleep(random.randrange(1,2)) #random delay vibration
+	j = random.randrange(0,5) #select random motor
+	print(j)
 
-	while(s1 and s2): #wait for input
-		libmetawear.mbl_mw_datasignal_read(signal1)
-		sleep(0.004)
-		libmetawear.mbl_mw_datasignal_read(signal2)
-		sleep(0.004) #bad but polling too quick causes stability issues
+	if j == 4: #quick implementation of tricking user
 
-	if j % 2: #determine if input was correct
-		correct = not(s2)
+		libmetawear.mbl_mw_gpio_set_digital_output(device.board, 0)
+		libmetawear.mbl_mw_gpio_set_digital_output(device.board, 1)
+		libmetawear.mbl_mw_gpio_set_digital_output(device.board, 2)
+		libmetawear.mbl_mw_gpio_set_digital_output(device.board, 3)
+
+		correct = True
+
+		a = 0
+		while(a < 200): #thats about two seconds
+			libmetawear.mbl_mw_datasignal_read(signal1)
+			sleep(0.004)
+			libmetawear.mbl_mw_datasignal_read(signal2)
+			sleep(0.004) #bad but polling too quick causes stability issues
+			a += 1
+
+			if (not(s1) or not(s2)):
+				correct = False
+
+		libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 0)
+		libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 1)
+		libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 2)
+		libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 3)
+
+		print("%r reaction to trick" % (correct))
+		data.append([j, correct, 999])
+		k -= 1
+
 	else:
-		correct = not(s1)
 
-	stop = clock_gettime(CLOCK_MONOTONIC)
-	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, j)
+		libmetawear.mbl_mw_gpio_set_digital_output(device.board, j)
+		start = clock_gettime(CLOCK_MONOTONIC)
+
+		while(s1 and s2): #wait for input
+			libmetawear.mbl_mw_datasignal_read(signal1)
+			sleep(0.004)
+			libmetawear.mbl_mw_datasignal_read(signal2)
+			sleep(0.004) #bad but polling too quick causes stability issues
+
+		if j % 2: #determine if input was correct
+			correct = not(s2)
+		else:
+			correct = not(s1)
+
+		stop = clock_gettime(CLOCK_MONOTONIC)
+		libmetawear.mbl_mw_gpio_clear_digital_output(device.board, j)
 	
-	while(not(s1 and s2)): #debouncing
-		libmetawear.mbl_mw_datasignal_read(signal1)
-		sleep(0.004)
-		libmetawear.mbl_mw_datasignal_read(signal2)
-		sleep(0.004)
+		while(not(s1 and s2)): #debouncing
+			libmetawear.mbl_mw_datasignal_read(signal1)
+			sleep(0.004)
+			libmetawear.mbl_mw_datasignal_read(signal2)
+			sleep(0.004)
 
-	print("%r reaction to motor %d was %f seconds" % (correct, j, (stop - start)))
-	data.append([j, correct, (stop-start)])
-	k -= 1
+		print("%r reaction to motor %d was %f seconds" % (correct, j, (stop - start)))
+		data.append([j, correct, (stop-start)])
+		k -= 1
 
 
 #write results to file
