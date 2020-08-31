@@ -57,7 +57,6 @@ print("subscribed listener\n")
 while k > 0:
 	sleep(random.randrange(1,2)) #random delay vibration
 	j = random.randrange(0,5) #select random motor
-	print(j)
 
 	if j == 4: #quick implementation of tricking user
 
