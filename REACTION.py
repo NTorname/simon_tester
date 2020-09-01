@@ -27,7 +27,16 @@ def data_handler2(context, data):
 libmetawear.callback2 = FnVoid_VoidP_DataP(data_handler2)
 
 
-def reaction_time():
+def clear_outputs():
+	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 0)
+	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 1)
+	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 2) 
+	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 3)
+	#libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 4) 
+	#libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 5) 
+
+
+def reaction_time(j):
 	libmetawear.mbl_mw_gpio_set_digital_output(device.board, j)
 	start = clock_gettime(CLOCK_MONOTONIC)
 
@@ -55,12 +64,9 @@ def reaction_time():
 	data.append([j, correct, (stop-start)])
 
 
-def reaction_trick(): #quick implementation of tricking user
-	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 0)
-	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 1)
-	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 2)
-	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 3)
-
+def reaction_trick(j): #quick implementation of tricking user
+	print(j)
+	clear_outputs()
 	correct = True
 
 	a = 0
@@ -74,13 +80,9 @@ def reaction_trick(): #quick implementation of tricking user
 		if (not(s1) or not(s2)):
 			correct = False
 
-	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 0)
-	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 1)
-	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 2)
-	libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 3)
-
+	clear_outputs()
 	print("%r reaction to trick" % (correct))
-	data.append([j, correct, -1])
+	data.append(["all", correct, -1])
 
 
 #set up metatracker
@@ -95,10 +97,7 @@ libmetawear.mbl_mw_gpio_set_pull_mode(device.board, 3, 1)
 libmetawear.mbl_mw_gpio_set_pull_mode(device.board, 4, 0) 
 libmetawear.mbl_mw_gpio_set_pull_mode(device.board, 5, 0)
 
-libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 0) #good practice
-libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 1) #cleans ungraceful shutdown
-libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 2) 
-libmetawear.mbl_mw_gpio_clear_digital_output(device.board, 3) 
+clear_outputs() #cleans ungraceful shutdown
 print("configured pins")
 
 
@@ -117,9 +116,9 @@ while k > 0:
 	j = random.randrange(0,5) #select random motor
 
 	if j == 4:
-		reaction_trick()
+		reaction_trick(j)
 	else:
-		reaction_time()
+		reaction_time(j)
 
 	k -= 1
 
