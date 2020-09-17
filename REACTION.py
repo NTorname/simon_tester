@@ -65,7 +65,6 @@ def reaction_time(j):
 
 
 def reaction_trick(j): #quick implementation of tricking user
-	print(j)
 	clear_outputs()
 	correct = True
 
