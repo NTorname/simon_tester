@@ -10,4 +10,4 @@ Must have a linux computer with Python 3, bluetooth capabilities, and the Mbient
 `sudo python3 REACTION.py [mac address] [# of samples] [file_name.csv]` 
 
 where the mac address is the one printed on the MetaTracker, the sample number is how many time the user must react, and file_name is where the data will be stored.
-I recommend setting `[mac address]` to a bash variable so you only have to type `$mac` instead of memorizing a 12 digit long MAC.
+I recommend setting `[mac address]` to a bash variable so you only have to type `$var` instead of memorizing a 12 digit long MAC.
