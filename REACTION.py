@@ -65,7 +65,10 @@ def reaction_time(j):
 
 
 def reaction_trick(j): #quick implementation of tricking user
-	clear_outputs()
+	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 0)
+	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 1)
+	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 2)
+	libmetawear.mbl_mw_gpio_set_digital_output(device.board, 3)
 	correct = True
 
 	a = 0
