@@ -72,7 +72,7 @@ def reaction_trick(j): #quick implementation of tricking user
 	correct = True
 
 	a = 0
-	while(a < 200): #thats about two seconds
+	while(a < 300): #thats about three seconds
 		libmetawear.mbl_mw_datasignal_read(signal1)
 		sleep(0.004)
 		libmetawear.mbl_mw_datasignal_read(signal2)
