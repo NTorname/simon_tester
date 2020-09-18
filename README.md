@@ -7,7 +7,8 @@ The user wears a MbientLab MetaTracker. GPIO 0-3 control pager motors attached t
 ## usage
 Must have a linux computer with Python 3, bluetooth capabilities, and the MbientLab Python API installed. To run the script use
 
-`sudo python3 REACTION.py [mac address] [# of samples] [file_name.csv]` 
+`sudo python3 REACTION.py [mac_address] [# of samples] [file_name.csv]` 
 
-where the mac address is the one printed on the MetaTracker, the sample number is how many time the user must react, and file_name is where the data will be stored.
-I recommend setting `[mac address]` to a bash variable so you only have to type `$var` instead of memorizing a 12 digit long MAC.
+where the mac_address is the one printed on the MetaTracker, the sample number is how many time the user must react, and file_name is where the data will be stored.
+
+I recommend adding `export mtr=[mac_address]` to your .bashrc file to shortcut typing the MAC address to simple `$mtr`.
