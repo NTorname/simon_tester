@@ -5,7 +5,7 @@ Using a wearable Metatracker device and supporting circuitry to test reaction ti
 The user wears a MbientLab MetaTracker. GPIO 0-3 control pager motors attached to the subject's legs, GPIO 4 & 5 correspond to foot pedals to measure response time.
 
 ## usage
-Must have a linux computer with Python 3, bluetooth capabilities, and the MbientLab Python API installed. To run the script use
+Must have a Debian style linux computer with Python 3, bluetooth capabilities, and the [MbientLab Python API](https://mbientlab.com/tutorials/PyLinux.html#metawear) installed. To run the script use
 
 `sudo python3 REACTION.py [mac_address] [# of samples] [file_name.csv]` 
 
