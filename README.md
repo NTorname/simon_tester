@@ -27,4 +27,4 @@ I recommend inputting-/** `set mtr=[mac_address]` to shortcut typing the MAC add
 
 ## output
 
-Progam output is a CSV file with information about what motor was excited, if the subject's reaction was correct, and how long in seconds the reaction time was.
+Progam output is a CSV file with information about which motor was excited, if the subject's reaction was correct, and how long in seconds the reaction time was.
