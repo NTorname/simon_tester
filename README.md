@@ -23,7 +23,7 @@ Must have a computer with Python 2.7 and the [MbientLab Python API](https://mbie
 
 where the mac_address is the one printed on the MetaTracker, the sample number is how many time the user must react, and file_name is where the data will be stored.
 
-I recommend inputting-/** `set mtr=[mac_address]` to shortcut typing the MAC address to simple `%mtr%`.
+I recommend inputting `set mtr=[mac_address]` to shortcut typing the MAC address to simple `%mtr%`.
 
 ## output
 
