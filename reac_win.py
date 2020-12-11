@@ -11,7 +11,12 @@ import sys, random, csv
 s1 = s2 = True
 k = int(sys.argv[2])
 data = []
+motorArray = []
 
+#clunky way of pseudo-random selection of desired outputs
+for x in range(5):
+	for y in range(k):
+		motorArray.append(x)
 
 #callback when gpio input state found
 #this may be the most convoluted way to read a GPIO in the history of 
@@ -113,16 +118,16 @@ print("subscribed listener\n")
 
 
 #starting reaction testing
-while k > 0:
+while len(motorArray):
 	sleep(random.randrange(1,10)) #random delay vibration
-	j = random.randrange(0,5) #select random motor
+	j = random.randrange(0,len(global motorArray)) #select random motor
 
-	if j == 4:
-		reaction_trick(j)
+	if global motorArray[j] == 4:
+		reaction_trick(global motorArray[j])
 	else:
-		reaction_time(j)
+		reaction_time(global motorArray[j])
 
-	k -= 1
+	global motorArray.pop(j) #delete this option from the array
 
 
 #write results to file
