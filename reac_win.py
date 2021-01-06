@@ -10,13 +10,16 @@ import sys, random, csv
 
 s1 = s2 = True
 k = int(sys.argv[2])
+i = 0
 data = []
 motorArray = []
 
 #clunky way of pseudo-random selection of desired outputs
-for x in range(5):
-	for y in range(k):
-		motorArray.append(x)
+for y in range(k):
+	motorArray.append(i)
+	i += 1
+	if i = 5:
+		i = 0
 
 #callback when gpio input state found
 #this may be the most convoluted way to read a GPIO in the history of 
