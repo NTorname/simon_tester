@@ -18,7 +18,7 @@ motorArray = []
 for y in range(k):
 	motorArray.append(i)
 	i += 1
-	if i = 5:
+	if i == 5:
 		i = 0
 
 #callback when gpio input state found
