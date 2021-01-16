@@ -122,15 +122,16 @@ print("subscribed listener\n")
 
 #starting reaction testing
 while len(motorArray):
+	#global motorArray
 	sleep(random.randrange(1,10)) #random delay vibration
-	j = random.randrange(0,len(global motorArray)) #select random motor
+	j = random.randrange(0,len(motorArray)) #select random motor
 
-	if global motorArray[j] == 4:
-		reaction_trick(global motorArray[j])
+	if motorArray[j] == 4:
+		reaction_trick(motorArray[j])
 	else:
-		reaction_time(global motorArray[j])
+		reaction_time(motorArray[j])
 
-	global motorArray.pop(j) #delete this option from the array
+	motorArray.pop(j) #delete this option from the array
 
 
 #write results to file
